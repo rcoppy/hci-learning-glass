@@ -22,7 +22,10 @@ public class SimpleFollowCamera : MonoBehaviour
     [SerializeField] private float _lookRotationBlendFactor = 0.4f;
     [SerializeField] private Quaternion _originalForwardRotation;
     [SerializeField] private float _maxPitchAngle = 80f;
-    [SerializeField] private float _minPitchAngle = -80f; 
+    [SerializeField] private float _minPitchAngle = -80f;
+    [SerializeField] private float _zoomLevel = 1f; 
+    [SerializeField] private float _zoomCoefficient = 0.1f;
+    [SerializeField] private bool _invertedZoom = true; 
     
     private Vector3 _offset;
     private Vector3 _originalForward;
@@ -30,7 +33,8 @@ public class SimpleFollowCamera : MonoBehaviour
     private Quaternion _originalSelfRotation;
     private Quaternion _originalTargetRotation;
     private float _yawAxis = 0f; 
-    private float _pitchAxis = 0f; 
+    private float _pitchAxis = 0f;
+    private float _zoomDelta = 0f; 
     
     LayerMask _trackLayer;
 
@@ -76,6 +80,9 @@ public class SimpleFollowCamera : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        _zoomLevel += (_invertedZoom ? -1 : 1) * _zoomDelta; 
+        _zoomLevel = Mathf.Clamp(_zoomLevel, 0.1f, 2.5f);
+        
         _pitchAngle += (_invertPitchSteering ? -1f : 1f) * 180f * _pitchSensitivity * Time.fixedDeltaTime * _pitchAxis;
         _yawAngle += (_invertYawSteering ? -1f : 1f) * 180f * _yawSensitivity * Time.fixedDeltaTime * _yawAxis;
         // _yawAngle *= 0.995f;
@@ -120,7 +127,7 @@ public class SimpleFollowCamera : MonoBehaviour
         var dif = _target.rotation * Quaternion.Inverse(_originalTargetRotation);
         
         transform.position = Vector3.Lerp(transform.position,
-            _target.position + yawRot * dif * _offset,
+            _target.position + yawRot * dif * (_zoomLevel * _offset),
             Time.fixedDeltaTime * _locationSnapCoefficient);
 
         var delta = transform.position - _target.position; 
@@ -159,6 +166,17 @@ public class SimpleFollowCamera : MonoBehaviour
         }
     }
 
+    public void UpdateZoom(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _zoomDelta = _zoomCoefficient * context.action.ReadValue<Vector2>().y;
+        } else if (context.canceled)
+        {
+            _zoomDelta = 0f; 
+        }
+    }
+    
     public void SetYawAngle(float angle)
     {
         _yawAngle = angle; 
