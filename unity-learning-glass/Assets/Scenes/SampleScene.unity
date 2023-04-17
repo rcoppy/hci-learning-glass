@@ -653,6 +653,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jointPrefab: {fileID: 7633090870815316270, guid: b1231cc20a4221c42b7e3b1cb5f21ce6,
     type: 3}
+  _onHandMove:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 330585548}
+        m_TargetAssemblyTypeName: SimpleFollowCamera, Assembly-CSharp
+        m_MethodName: UpdateAxesWithoutInputSystem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1022410063
 Transform:
   m_ObjectHideFlags: 0

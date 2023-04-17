@@ -166,6 +166,12 @@ public class SimpleFollowCamera : MonoBehaviour
         }
     }
 
+    public void UpdateAxesWithoutInputSystem(Vector2 delta)
+    {
+        _yawAxis = delta.x;
+        _pitchAxis = delta.y;
+    }
+
     public void UpdateZoom(InputAction.CallbackContext context)
     {
         if (context.performed)
