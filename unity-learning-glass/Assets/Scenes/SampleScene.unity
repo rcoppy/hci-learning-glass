@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18029143, g: 0.22572419, b: 0.30693057, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,9 +258,9 @@ MonoBehaviour:
   _target: {fileID: 558425316}
   _yawAngle: 0
   _pitchAngle: 0
-  _yawSensitivity: 0.2
-  _pitchSensitivity: 0.2
-  _invertYawSteering: 1
+  _yawSensitivity: 35
+  _pitchSensitivity: 20
+  _invertYawSteering: 0
   _invertPitchSteering: 0
   _locationSnapCoefficient: 12
   _rotationSnapCoefficient: 12

@@ -28,7 +28,7 @@ public class PoseTrackingAvatar : MonoBehaviour
     };
 
     private Dictionary<JointType, GameObject> _createdJoints;
-    private UnityEngine.Vector3 _lastProjectedHandPosition = UnityEngine.Vector3.zero;
+    private UnityEngine.Vector2 _lastProjectedHandPosition = UnityEngine.Vector3.zero;
 
     private void Awake()
     {
@@ -55,16 +55,17 @@ public class PoseTrackingAvatar : MonoBehaviour
 
         if (NuitrackManager.Users.Current.RightHand != null)
         {
-            var delta = NuitrackManager.Users.Current.RightHand.Position - _lastProjectedHandPosition;
+            var delta = NuitrackManager.Users.Current.RightHand.Proj - _lastProjectedHandPosition;
             _onHandMove?.Invoke(delta);
         }
     }
 
     private void LateUpdate()
     {
+        if (NuitrackManager.Users.Current == null) return;
         if (NuitrackManager.Users.Current.RightHand != null)
         {
-            _lastProjectedHandPosition = NuitrackManager.Users.Current.RightHand.Position;
+            _lastProjectedHandPosition = NuitrackManager.Users.Current.RightHand.Proj;
         }
     }
 }
