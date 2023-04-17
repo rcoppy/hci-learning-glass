@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using nuitrack;
 using UnityEngine;
 using NuitrackSDK;
@@ -9,6 +10,7 @@ using UnityEngine.InputSystem;
 
 public class PoseTrackingAvatar : MonoBehaviour
 {
+    [SerializeField] private int _velocityBufferSize = 40; 
     [SerializeField] private GameObject _jointPrefab;
     [SerializeField] private UnityEvent<Vector2> _onHandMove; 
     
@@ -30,8 +32,13 @@ public class PoseTrackingAvatar : MonoBehaviour
     private Dictionary<JointType, GameObject> _createdJoints;
     private UnityEngine.Vector2 _lastProjectedHandPosition = UnityEngine.Vector3.zero;
 
+    private Queue<UnityEngine.Vector2> _velocityBuffer; 
+    
+
     private void Awake()
     {
+        _velocityBuffer = new Queue<Vector2>();
+        
         _createdJoints = new Dictionary<JointType, GameObject>();
         
         foreach (var j in _allJoints) {
@@ -56,7 +63,12 @@ public class PoseTrackingAvatar : MonoBehaviour
         if (NuitrackManager.Users.Current.RightHand != null)
         {
             var delta = NuitrackManager.Users.Current.RightHand.Proj - _lastProjectedHandPosition;
-            _onHandMove?.Invoke(delta);
+            _velocityBuffer.Enqueue(delta / Time.deltaTime);
+            if (_velocityBuffer.Count > _velocityBufferSize) _velocityBuffer.Dequeue();
+
+            var movingVelocityAverage = 1f / _velocityBufferSize * _velocityBuffer.Aggregate(UnityEngine.Vector2.zero, (total, next) => total += next); 
+            
+            _onHandMove?.Invoke(Time.deltaTime * movingVelocityAverage);
         }
     }
 
