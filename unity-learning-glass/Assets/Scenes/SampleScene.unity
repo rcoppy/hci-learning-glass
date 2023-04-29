@@ -498,6 +498,86 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &503568568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b7f5afb24773ac0429f7b5b9e63cfc0c,
+    type: 3}
+  m_PrefabInstance: {fileID: 558425315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &530738064
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267361, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401171069489267363, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 2401171069489267367, guid: 77044553ecf685146846811810355e44,
+        type: 3}
+      propertyPath: m_Name
+      value: LaserPointer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 77044553ecf685146846811810355e44, type: 3}
 --- !u!1001 &558425315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -573,6 +653,20 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 558425315}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &558425319
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503568568}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8310167813121758652, guid: b7f5afb24773ac0429f7b5b9e63cfc0c, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5180d6d7a3dfcdc4d9ceae72c741a29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _velocityBufferSize: 40
   _jointPrefab: {fileID: 7633090870815316270, guid: b1231cc20a4221c42b7e3b1cb5f21ce6,
     type: 3}
   _onHandMove:
