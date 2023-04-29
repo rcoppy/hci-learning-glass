@@ -14,6 +14,14 @@ public class PoseTrackingAvatar : MonoBehaviour
     [SerializeField] private GameObject _jointPrefab;
     [SerializeField] private UnityEvent<Vector2> _onHandMove; 
     
+    [SerializeField] private UnityEvent<Vector2> _onHandUpdatePosition; 
+    
+    public bool IsDraggingEnabled = false;
+    
+    public void SetIsDraggingEnabled(bool flag) {
+    	IsDraggingEnabled = flag;
+    }
+    
     private JointType[] _leftJoints =
     {
         JointType.LeftElbow, JointType.LeftHand, JointType.LeftShoulder, JointType.LeftWrist
@@ -33,11 +41,13 @@ public class PoseTrackingAvatar : MonoBehaviour
     private UnityEngine.Vector2 _lastProjectedHandPosition = UnityEngine.Vector3.zero;
 
     private Queue<UnityEngine.Vector2> _velocityBuffer; 
+    private Queue<UnityEngine.Vector2> _positionBuffer; 
     
 
     private void Awake()
     {
         _velocityBuffer = new Queue<Vector2>();
+        _positionBuffer = new Queue<Vector2>();
         
         _createdJoints = new Dictionary<JointType, GameObject>();
         
@@ -63,12 +73,24 @@ public class PoseTrackingAvatar : MonoBehaviour
         if (NuitrackManager.Users.Current.RightHand != null)
         {
             var delta = NuitrackManager.Users.Current.RightHand.Proj - _lastProjectedHandPosition;
-            _velocityBuffer.Enqueue(delta / Time.deltaTime);
+            if (IsDraggingEnabled) {
+            	_velocityBuffer.Enqueue(delta / Time.deltaTime);
+            } else {
+            	_velocityBuffer.Enqueue(UnityEngine.Vector2.zero); 
+            }
+            
+            _positionBuffer.Enqueue(NuitrackManager.Users.Current.RightHand.Proj);
+            
             if (_velocityBuffer.Count > _velocityBufferSize) _velocityBuffer.Dequeue();
+            if (_positionBuffer.Count > _velocityBufferSize) _positionBuffer.Dequeue();
 
-            var movingVelocityAverage = 1f / _velocityBufferSize * _velocityBuffer.Aggregate(UnityEngine.Vector2.zero, (total, next) => total += next); 
+            var movingVelocityAverage = 1f / _velocityBufferSize * _velocityBuffer.Aggregate(UnityEngine.Vector2.zero, (total, next) => total += next);
+            
+            var movingPositionAverage = 1f / _velocityBufferSize * _positionBuffer.Aggregate(UnityEngine.Vector2.zero, (total, next) => total += next); 
             
             _onHandMove?.Invoke(Time.deltaTime * movingVelocityAverage);
+            
+            _onHandUpdatePosition?.Invoke(movingPositionAverage);
         }
     }
 

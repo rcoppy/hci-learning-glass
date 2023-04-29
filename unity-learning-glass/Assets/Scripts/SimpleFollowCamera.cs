@@ -183,6 +183,13 @@ public class SimpleFollowCamera : MonoBehaviour
         }
     }
     
+    public void UpdateZoomWithoutInputSystem(float zoomLevel)
+    {
+        
+    	_zoomDelta = _zoomCoefficient * zoomLevel;
+        
+    }
+    
     public void SetYawAngle(float angle)
     {
         _yawAngle = angle; 

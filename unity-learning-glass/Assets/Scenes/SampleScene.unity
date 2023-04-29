@@ -258,10 +258,10 @@ MonoBehaviour:
   _target: {fileID: 558425316}
   _yawAngle: 0
   _pitchAngle: 0
-  _yawSensitivity: 35
-  _pitchSensitivity: 20
+  _yawSensitivity: 20
+  _pitchSensitivity: 7
   _invertYawSteering: 0
-  _invertPitchSteering: 0
+  _invertPitchSteering: 1
   _locationSnapCoefficient: 12
   _rotationSnapCoefficient: 12
   _occlusionCheckOffset: 2
@@ -578,6 +578,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77044553ecf685146846811810355e44, type: 3}
+--- !u!114 &530738065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2401171069489267363, guid: 77044553ecf685146846811810355e44,
+    type: 3}
+  m_PrefabInstance: {fileID: 530738064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4b9b81699052f45a84b9e9144848cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &558425315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -745,7 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5180d6d7a3dfcdc4d9ceae72c741a29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _velocityBufferSize: 40
+  _velocityBufferSize: 10
   _jointPrefab: {fileID: 7633090870815316270, guid: b1231cc20a4221c42b7e3b1cb5f21ce6,
     type: 3}
   _onHandMove:
@@ -763,6 +775,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onHandUpdatePosition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 530738065}
+        m_TargetAssemblyTypeName: TracePointer, Assembly-CSharp
+        m_MethodName: HandlePointerWithoutInputSystem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  IsDraggingEnabled: 0
 --- !u!4 &1022410063
 Transform:
   m_ObjectHideFlags: 0
@@ -977,6 +1005,185 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59c1aadbb1a2f254b96c34fe3398a749, type: 3}
+--- !u!1 &1942978255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1942978257}
+  - component: {fileID: 1942978256}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1942978256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942978255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5146eafb53c3a828e860e9f18a13b94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HandleMoveTriggerDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1022410062}
+        m_TargetAssemblyTypeName: PoseTrackingAvatar, Assembly-CSharp
+        m_MethodName: SetIsDraggingEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  HandleMoveTriggerCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1022410062}
+        m_TargetAssemblyTypeName: PoseTrackingAvatar, Assembly-CSharp
+        m_MethodName: SetIsDraggingEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleMovePrimaryDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 530738065}
+        m_TargetAssemblyTypeName: TracePointer, Assembly-CSharp
+        m_MethodName: SetIsEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  HandleMovePrimaryCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 530738065}
+        m_TargetAssemblyTypeName: TracePointer, Assembly-CSharp
+        m_MethodName: SetIsEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleMoveCircleHeld:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 330585548}
+        m_TargetAssemblyTypeName: SimpleFollowCamera, Assembly-CSharp
+        m_MethodName: UpdateZoomWithoutInputSystem
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleMoveCrossHeld:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 330585548}
+        m_TargetAssemblyTypeName: SimpleFollowCamera, Assembly-CSharp
+        m_MethodName: UpdateZoomWithoutInputSystem
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: -1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleMoveCircleCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 330585548}
+        m_TargetAssemblyTypeName: SimpleFollowCamera, Assembly-CSharp
+        m_MethodName: UpdateZoomWithoutInputSystem
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleMoveCrossCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 330585548}
+        m_TargetAssemblyTypeName: SimpleFollowCamera, Assembly-CSharp
+        m_MethodName: UpdateZoomWithoutInputSystem
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  HandleMoveOrientation:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 530738065}
+        m_TargetAssemblyTypeName: TracePointer, Assembly-CSharp
+        m_MethodName: SetRotationOffset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1942978257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942978255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2057561772
 PrefabInstance:
   m_ObjectHideFlags: 0

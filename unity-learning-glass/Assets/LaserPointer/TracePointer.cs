@@ -15,12 +15,19 @@ public class TracePointer : MonoBehaviour
     private LinkedList<Vector3> _points;
     private float _lastDespawnTime = 0f;
     private bool _isEnabled = false; 
+    
+    public Quaternion RotationOffset = Quaternion.identity; 
+    
+    public void SetRotationOffset(Quaternion rot) {
+    	RotationOffset = rot; 
+    }
 
     [SerializeField] private Camera _camera;
     [SerializeField] private float _distDeltaThreshold = 0.01f;
     [SerializeField] private float _timeDeltaThreshold = 1 / 10f;
     [SerializeField] private float _timeToWaitForDespawn = 0.3f;
     [SerializeField] private int _maxPoints = 40; 
+	[SerializeField] private float _rotSlerpCoeff = 0.3f; 
 
     private void Awake()
     {
@@ -86,6 +93,27 @@ public class TracePointer : MonoBehaviour
 
         SpawnTracePoint((Vector3)worldPoint);
     }
+    
+    public void HandlePointerWithoutInputSystem(Vector2 pointer)
+    {
+        if (!_isEnabled) return;
+
+        var viewportPoint = //_camera.ScreenToViewportPoint(
+            new Vector3(pointer.x, pointer.y, _camera.nearClipPlane);
+        //);
+
+        var worldPoint = GetWorldPositionFromViewportPoint(viewportPoint);
+        
+        if (worldPoint == null) return;
+
+        float distDelta = ((Vector3)worldPoint - _lastPointPosition).magnitude; 
+        if (distDelta < _distDeltaThreshold) return;
+
+        float timeDelta = Time.time - _lastPointSpawnTime;
+        if (timeDelta < _timeDeltaThreshold) return;
+
+        SpawnTracePoint((Vector3)worldPoint);
+    }
 
     void DespawnOldestPoint()
     {
@@ -112,6 +140,12 @@ public class TracePointer : MonoBehaviour
     Vector3? GetWorldPositionFromViewportPoint(Vector3 viewportPoint)
     {
         var ray = _camera.ViewportPointToRay(viewportPoint);
+
+	var offsetVector = RotationOffset * _camera.transform.forward; 
+	var rot = Quaternion.FromToRotation(_camera.transform.forward, offsetVector); 
+	var rotSlerp = Quaternion.Lerp(Quaternion.identity, rot, _rotSlerpCoeff); 
+	
+	ray = new Ray(ray.origin, rotSlerp * ray.direction); 
 
         if (Physics.Raycast(ray, out var hit, _camera.farClipPlane)) return hit.point + 0.06f * hit.normal;
         
