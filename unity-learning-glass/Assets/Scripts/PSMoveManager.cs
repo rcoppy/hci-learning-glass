@@ -63,6 +63,10 @@ public class PSMoveManager : MonoBehaviour
 	[SerializeField] public UnityEvent HandleMoveCircleCancel;
 	[SerializeField] public UnityEvent HandleMoveCrossCancel; 
 	
+	[SerializeField] public UnityEvent HandleMoveSquarePress;
+	[SerializeField] public UnityEvent HandleMoveTrianglePress;
+	[SerializeField] public UnityEvent HandleMoveSelectPress; 
+	
 	public UnityEvent<Quaternion> HandleMoveOrientation; 
 
 	private Quaternion _moveOrientation = Quaternion.identity;
@@ -161,6 +165,18 @@ public class PSMoveManager : MonoBehaviour
 			_moveOrientation = move.Orientation;
 			
 			HandleMoveOrientation?.Invoke(_moveOrientation); 
+
+			if (move.GetButtonDown(PSMoveButton.Square)) {
+				HandleMoveSquarePress?.Invoke();
+			}
+			
+			if (move.GetButtonDown(PSMoveButton.Triangle)) {
+				HandleMoveTrianglePress?.Invoke();
+			}
+			
+			if (move.GetButtonDown(PSMoveButton.Select)) {
+				HandleMoveSelectPress?.Invoke();
+			}
 
 			if (move.GetButton(PSMoveButton.Cross)) {
 				HandleMoveCrossHeld?.Invoke();

@@ -117,7 +117,7 @@ public class TracePointer : MonoBehaviour
 
     void DespawnOldestPoint()
     {
-        if (_points.Count <= 0) return;
+        if (_points.Count <= 2) return;
         
         _points.RemoveFirst();
         _renderer.positionCount = _points.Count;
@@ -142,7 +142,7 @@ public class TracePointer : MonoBehaviour
         var ray = _camera.ViewportPointToRay(viewportPoint);
 
 	var offsetVector = RotationOffset * _camera.transform.forward; 
-	var rot = Quaternion.FromToRotation(_camera.transform.forward, offsetVector); 
+	var rot = Quaternion.FromToRotation(offsetVector, _camera.transform.forward); 
 	var rotSlerp = Quaternion.Lerp(Quaternion.identity, rot, _rotSlerpCoeff); 
 	
 	ray = new Ray(ray.origin, rotSlerp * ray.direction); 
